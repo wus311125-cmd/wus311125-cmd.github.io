@@ -90,6 +90,11 @@ header{
 header .brand{
   font-family:var(--display); font-weight:900;
   font-size:16px; letter-spacing:.22em; text-transform:uppercase;
+  width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+}
+header .brand .dot{
+  width:12px; height:12px; border-radius:50%; background:var(--red);
+  box-shadow:0 0 0 3px var(--ground), 0 0 0 4px var(--ink);
 }
 header .brand em{ font-style:normal; color:var(--red); }
 header nav{ display:flex; gap:26px; }
@@ -112,68 +117,68 @@ header nav a:focus-visible{ outline:2px solid var(--red); outline-offset:4px; }
 }
 #menubtn:focus-visible{ outline:2px solid var(--red); outline-offset:2px; }
 
-/* ============ HERO — 混沌粒子舞台 ============ */
-#hero{
+/* ============ ABOUT — 混沌粒子舞台 ============ */
+#about{
   position:relative; height:100vh; min-height:560px;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; overflow:hidden;
   border-bottom:4px solid var(--ink);
 }
-#hero canvas{ position:absolute; inset:0; width:100%; height:100%; }
-#hero .halo{
+#about canvas{ position:absolute; inset:0; width:100%; height:100%; }
+#about .halo{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   width:min(86vmin,720px); height:min(86vmin,720px); pointer-events:none;
   background:radial-gradient(circle, rgba(163,35,29,.045) 0%, transparent 62%);
 }
-#hero .dateline{
+#about .dateline{
   position:absolute; top:0; left:0; right:0; z-index:2;
   display:flex; justify-content:space-between;
   padding:18px 5vw 0;
   font-family:var(--sans); font-size:11px; letter-spacing:.24em;
   color:var(--ink-faint); text-transform:uppercase;
 }
-#hero .eyebrow{
+#about .eyebrow{
   position:relative; font-family:var(--sans); font-size:clamp(10px,1.4vw,12.5px);
   letter-spacing:.5em; text-indent:.5em; color:var(--red); text-transform:uppercase;
   opacity:0; animation:fadein 1.4s ease .9s forwards;
 }
-#hero .eyebrow::before,#hero .eyebrow::after{
+#about .eyebrow::before,#about .eyebrow::after{
   content:"—"; margin:0 1.1em; color:var(--ink-faint); letter-spacing:.2em;
 }
-#hero h1{
+#about h1{
   position:relative; margin-top:20px;
   font-family:var(--display); font-weight:900;
-  font-size:clamp(52px,11vw,128px); letter-spacing:.06em; line-height:1.04;
+  font-size:clamp(44px,9vw,104px); letter-spacing:.08em; line-height:1.1;
   opacity:0; animation:fadein 1.6s ease 1.15s forwards;
   text-shadow:2px 3px 0 var(--rule);
 }
-#hero h1 .red{ color:var(--red); }
-#hero .sub{
+#about h1 .red{ color:var(--red); }
+#about .sub{
   position:relative; margin-top:28px; max-width:min(560px,80vw);
   font-size:clamp(15px,2vw,18px); font-weight:400; letter-spacing:.1em; line-height:1.9;
   color:var(--ink-dim);
   opacity:0; animation:fadein 1.6s ease 1.5s forwards;
 }
-#hero .cta{
+#about .cta{
   position:relative; margin-top:46px; display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
   opacity:0; animation:fadein 1.4s ease 1.85s forwards;
 }
-#hero .cta a{
+#about .cta a{
   font-family:var(--sans); font-size:clamp(13px,1.7vw,15px); letter-spacing:.26em; text-indent:.26em;
   padding:16px 42px; border:1px solid var(--ink); color:var(--ink);
   transition:all .35s; position:relative; background:var(--ground);
   min-height:52px; display:inline-flex; align-items:center; justify-content:center;
 }
-#hero .cta a.inkbt{ background:var(--ink); color:var(--ground); border-color:var(--ink); font-weight:500; }
-#hero .cta a.inkbt:hover{ background:var(--red); border-color:var(--red); }
-#hero .cta a:not(.inkbt):hover{ background:var(--red); border-color:var(--red); color:var(--ground); }
-#hero .cta a:focus-visible{ outline:3px solid var(--red); outline-offset:3px; }
-#hero .scrollhint{
+#about .cta a.inkbt{ background:var(--ink); color:var(--ground); border-color:var(--ink); font-weight:500; }
+#about .cta a.inkbt:hover{ background:var(--red); border-color:var(--red); }
+#about .cta a:not(.inkbt):hover{ background:var(--red); border-color:var(--red); color:var(--ground); }
+#about .cta a:focus-visible{ outline:3px solid var(--red); outline-offset:3px; }
+#about .scrollhint{
   position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
   font-family:var(--sans); font-size:11px; letter-spacing:.4em; text-indent:.4em;
   color:var(--ink-faint); opacity:0; animation:fadein 1.6s ease 2.4s forwards;
 }
-#hero .scrollhint::after{
+#about .scrollhint::after{
   content:""; display:block; width:1px; height:30px; margin:10px auto 0;
   background:linear-gradient(var(--ink-faint), transparent);
   animation:linedrop 2.2s ease infinite;
@@ -274,11 +279,23 @@ header nav a:focus-visible{ outline:2px solid var(--red); outline-offset:4px; }
 .post:focus-visible{ outline:3px solid var(--red); outline-offset:-3px; }
 .post .date{
   font-family:var(--sans); font-size:12.5px; color:var(--ink-faint);
-  letter-spacing:.14em; width:108px; flex-shrink:0;
+  letter-spacing:.14em; width:100px; flex-shrink:0; align-self:flex-start; padding-top:6px;
 }
+.post .pimg{
+  width:150px; height:96px; flex-shrink:0; overflow:hidden;
+  border:1px solid var(--rule); align-self:flex-start;
+}
+.post .pimg img{ width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.3) contrast(1.02); transition:filter .4s; }
+.post:hover .pimg img{ filter:grayscale(0); }
+.post .ptx{ flex:1; display:flex; flex-direction:column; gap:8px; min-width:0; }
 .post .tt{
-  flex:1; font-family:var(--display); font-weight:700;
+  font-family:var(--display); font-weight:700;
   font-size:clamp(18px,2.6vw,27px); letter-spacing:.02em; line-height:1.35;
+}
+.post .pex{
+  font-size:14.5px; line-height:1.75; color:var(--ink-dim);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  font-family:var(--reading);
 }
 .post .cat{
   font-size:11.5px; letter-spacing:.18em; color:var(--red);
@@ -383,7 +400,9 @@ footer .copy b{ color:var(--red); font-weight:400; }
   .post{ flex-wrap:wrap; gap:12px; }
   .post .date{ width:auto; }
   .post .arr{ display:none; }
-  #hero .dateline{ display:none; }
+  .post .pimg{ width:100%; height:auto; aspect-ratio:16/9; }
+  .post .ptx{ flex-basis:100%; }
+  #about .dateline{ display:none; }
   footer .links{ gap:18px; }
   #reader .inner{ padding-top:16vh; }
 }
@@ -391,7 +410,7 @@ footer .copy b{ color:var(--red); font-weight:400; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; }
   .reveal{ opacity:1; transform:none; }
-  #hero .eyebrow, #hero h1, #hero .sub, #hero .scrollhint{ opacity:1; animation:none; }
+  #about .eyebrow, #about h1, #about .sub, #about .scrollhint{ opacity:1; animation:none; }
 }
 .reveal{ opacity:0; transform:translateY(30px); transition:opacity 1s ease, transform 1s ease; }
 .reveal.in{ opacity:1; transform:none; }
@@ -402,25 +421,26 @@ footer .copy b{ color:var(--red); font-weight:400; }
 <div id="boot"><div class="tag">EN<b>T</b>ROPY → ORDER</div></div>
 
 <header>
-  <div class="brand">Hopan<em>.</em></div>
+  <div class="brand" aria-hidden="true"><span class="dot"></span></div>
   <nav aria-label="主導覽">
-    <a href="#columns">專欄</a>
+    <a href="#about">關於</a>
+    <a href="#columns">分類</a>
     <a href="#writing">文章</a>
     <a href="#contact">聯繫</a>
   </nav>
   <button id="menubtn" aria-label="開啟選單" aria-expanded="false">☰</button>
 </header>
 
-<section id="hero">
+<section id="about">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="halo"></div>
   <div class="dateline"><span>獨立研究 · 個人檔案</span><span>EST. 2026 · 香港</span></div>
   <div class="eyebrow">AI-Native Researcher &amp; Architect</div>
-  <h1>把<span class="red">混沌</span><br>煉成秩序</h1>
+  <h1>Hopan<span class="red">.</span></h1>
   <div class="sub">研究 AI Agents、記憶系統、跨域數據。<br>用結構，對抗漂移。</div>
   <div class="cta">
     <a href="#writing" class="inkbt">讀文章 ↓</a>
-    <a href="#columns">睇專欄</a>
+    <a href="#columns">睇分類</a>
   </div>
   <div class="scrollhint">SCROLL</div>
 </section>
@@ -451,7 +471,7 @@ footer .copy b{ color:var(--red); font-weight:400; }
     <a href="https://www.instagram.com/justplaythe_guitar/" target="_blank" rel="noopener">Instagram</a>
     <a href="mailto:nhp24682468.hpn@gmail.com">Email</a>
   </div>
-  <div class="copy reveal">© 2026 Hopan · <b>把混沌，煉成秩序</b> · Newsprint Edition</div>
+  <div class="copy reveal">© 2026 Hopan · Newsprint Edition</div>
 </footer>
 
 <!-- 文章閱讀器 -->
@@ -473,7 +493,7 @@ addEventListener('load',()=>setTimeout(()=>boot.classList.add('done'),700));
 
 /* ---------- 混沌粒子場 ---------- */
 const cv=document.getElementById('field'), ctx=cv.getContext('2d');
-const hero=document.getElementById('hero');
+const hero=document.getElementById('about');
 let W,H,dpr=Math.min(devicePixelRatio||1,2);
 function fit(){
   W=cv.width=Math.floor(hero.clientWidth*dpr);
@@ -601,7 +621,9 @@ function renderList(cat){
     el.className='post reveal';
     el.style.transitionDelay=Math.min(i*0.04,0.4)+'s';
     el.setAttribute('type','button');
-    el.innerHTML=`<span class="date">${p.d}</span><span class="tt">${p.t}</span><span class="cat">${p.c}</span><span class="arr">→</span>`;
+    const img = p.img ? `<span class="pimg"><img src="${p.img}" alt="" loading="lazy"></span>` : '';
+    const ex  = p.ex  ? `<span class="pex">${p.ex}</span>` : '';
+    el.innerHTML=`<span class="date">${p.d}</span>${img}<span class="ptx"><span class="tt">${p.t}</span>${ex}</span><span class="cat">${p.c}</span><span class="arr">→</span>`;
     el.addEventListener('click',()=>openReader(p,el));
     postlist.appendChild(el);
   });
