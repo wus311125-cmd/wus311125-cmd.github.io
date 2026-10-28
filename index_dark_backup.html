@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hopan — 把混沌，煉成秩序</title>
+<meta name="description" content="Hopan：AI-native researcher & architect。研究 AI Agents、記憶系統、跨域數據。將混沌，煉成秩序。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0d;
+    --bg-2:#111114;
+    --ink:#e8e4da;
+    --ink-dim:rgba(232,228,218,.52);
+    --ink-faint:rgba(232,228,218,.28);
+    --gold:#d4a24e;
+    --gold-soft:rgba(212,162,78,.55);
+    --line:rgba(232,228,218,.1);
+    --serif:"Noto Serif TC","Songti SC","STSong",Georgia,serif;
+    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    --en:"Space Grotesk","Noto Sans TC",sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-weight:300;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{ background:var(--gold); color:#0b0b0d; }
+  a{ color:inherit; text-decoration:none; }
+
+  /* ============ 載入遮幕 ============ */
+  #boot{
+    position:fixed; inset:0; z-index:100; background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 1s ease;
+  }
+  #boot.done{ opacity:0; pointer-events:none; }
+  #boot .tag{
+    font-family:var(--en); font-size:12px; letter-spacing:.6em; text-indent:.6em;
+    color:var(--ink-faint); animation:bootpulse 1.6s ease infinite;
+  }
+  @keyframes bootpulse{ 0%,100%{opacity:.3} 50%{opacity:.9} }
+
+  /* ============ 頂導覽 ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 5vw; mix-blend-mode:difference;
+  }
+  header .brand{
+    font-family:var(--en); font-size:14px; letter-spacing:.34em; text-transform:uppercase;
+  }
+  header nav{ display:flex; gap:38px; }
+  header nav a{
+    font-size:14px; letter-spacing:.18em; color:var(--ink-dim); transition:color .3s;
+    position:relative; padding-bottom:5px;
+  }
+  header nav a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--gold); transition:width .35s;
+  }
+  header nav a:hover{ color:var(--ink); }
+  header nav a:hover::after{ width:100%; }
+
+  /* ============ HERO — 混沌粒子舞台 ============ */
+  #hero{
+    position:relative; height:100vh; min-height:560px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+  }
+  #hero canvas{ position:absolute; inset:0; width:100%; height:100%; }
+  #hero .halo{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:min(86vmin,720px); height:min(86vmin,720px); pointer-events:none;
+    background:radial-gradient(circle, rgba(212,162,78,.05) 0%, transparent 62%);
+  }
+  #hero .eyebrow{
+    position:relative; font-family:var(--en); font-size:clamp(10px,1.4vw,13px);
+    letter-spacing:.62em; text-indent:.62em; color:var(--ink-faint); text-transform:uppercase;
+    opacity:0; animation:fadein 1.4s ease 0.9s forwards;
+  }
+  #hero h1{
+    position:relative; margin-top:26px;
+    font-family:var(--serif); font-weight:300;
+    font-size:clamp(46px,10.5vw,120px); letter-spacing:.1em; text-indent:.1em; line-height:1.08;
+    opacity:0; animation:fadein 1.6s ease 1.15s forwards;
+  }
+  #hero h1 .gold{
+    color:var(--gold); font-style:normal;
+  }
+  #hero .sub{
+    position:relative; margin-top:30px; max-width:min(520px,78vw);
+    font-size:clamp(14px,2vw,18px); font-weight:300; letter-spacing:.14em; line-height:2;
+    color:var(--ink-dim);
+    opacity:0; animation:fadein 1.6s ease 1.5s forwards;
+  }
+  #hero .cta{
+    position:relative; margin-top:52px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+    opacity:0; animation:fadein 1.4s ease 1.85s forwards;
+  }
+  #hero .cta a{
+    font-size:clamp(14px,1.8vw,16px); letter-spacing:.3em; text-indent:.3em;
+    padding:18px 48px; border:1px solid var(--gold); color:var(--ink);
+    transition:all .4s; position:relative;
+  }
+  #hero .cta a.goldbt{ background:var(--gold); color:#0b0b0d; border-color:var(--gold); font-weight:500; }
+  #hero .cta a:not(.goldbt):hover{ background:rgba(212,162,78,.08); letter-spacing:.42em; }
+  #hero .cta a.goldbt:hover{ background:transparent; color:var(--gold); }
+  #hero .scrollhint{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    font-family:var(--en); font-size:10px; letter-spacing:.4em; text-indent:.4em;
+    color:var(--ink-faint); opacity:0; animation:fadein 1.6s ease 2.4s forwards;
+  }
+  #hero .scrollhint::after{
+    content:""; display:block; width:1px; height:34px; margin:10px auto 0;
+    background:linear-gradient(var(--gold-soft), transparent);
+    animation:linedrop 2.2s ease infinite;
+  }
+  @keyframes linedrop{ 0%{transform:scaleY(0); transform-origin:top} 45%{transform:scaleY(1); transform-origin:top} 55%{transform:scaleY(1); transform-origin:top} 100%{transform:scaleY(0); transform-origin:bottom} }
+  @keyframes fadein{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+  @keyframes fadeup{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none} }
+
+  /* ============ 理念句（editorial） ============ */
+  #thesis{
+    position:relative; padding:24vh 8vw;
+    border-top:1px solid var(--line);
+    background:linear-gradient(var(--bg), var(--bg-2));
+  }
+  #thesis .kicker{
+    font-family:var(--en); font-size:11px; letter-spacing:.5em; text-indent:.5em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:40px;
+  }
+  #thesis p{
+    font-family:var(--serif); font-weight:300;
+    font-size:clamp(24px,4.6vw,44px); line-height:1.9; letter-spacing:.08em;
+    color:var(--ink); max-width:1000px;
+  }
+  #thesis p em{ font-style:normal; color:var(--gold); }
+  #thesis .foot{
+    margin-top:46px; font-size:13px; letter-spacing:.24em; color:var(--ink-faint);
+  }
+  .reveal{ opacity:0; transform:translateY(30px); transition:opacity 1s ease, transform 1s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ============ 分野（做緊嘅嘢） ============ */
+  #fields{ padding:14vh 8vw 18vh; background:var(--bg-2); border-top:1px solid var(--line); }
+  #fields .kicker{
+    font-family:var(--en); font-size:11px; letter-spacing:.5em; text-indent:.5em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:60px;
+  }
+  .field-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); }
+  .field{
+    background:var(--bg-2); padding:44px 30px 30px; min-height:230px;
+    transition:background .5s;
+  }
+  .field:hover{ background:#16161a; }
+  .field .no{
+    font-family:var(--en); font-size:12px; color:var(--ink-faint); letter-spacing:.2em;
+  }
+  .field h3{
+    margin-top:26px; font-family:var(--serif); font-weight:400;
+    font-size:clamp(18px,2vw,24px); letter-spacing:.1em;
+  }
+  .field p{
+    margin-top:14px; font-size:13.5px; line-height:1.9; letter-spacing:.05em; color:var(--ink-dim);
+  }
+  .field .idx{ display:none; }
+
+  /* ============ 文章 ============ */
+  #writing{ padding:16vh 8vw 18vh; border-top:1px solid var(--line); }
+  #writing .kicker{
+    font-family:var(--en); font-size:11px; letter-spacing:.5em; text-indent:.5em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:12px;
+  }
+  #writing .h{
+    font-family:var(--serif); font-weight:300; font-size:clamp(30px,5vw,52px);
+    letter-spacing:.12em; margin-bottom:70px;
+  }
+  .post{
+    display:flex; align-items:baseline; gap:34px; padding:30px 0;
+    border-bottom:1px solid var(--line); cursor:pointer;
+    transition:padding-left .5s;
+  }
+  .post:hover{ padding-left:18px; }
+  .post .date{
+    font-family:var(--en); font-size:12.5px; color:var(--ink-faint);
+    letter-spacing:.12em; width:110px; flex-shrink:0;
+  }
+  .post .tt{
+    flex:1; font-family:var(--serif); font-weight:400;
+    font-size:clamp(19px,3vw,30px); letter-spacing:.06em;
+  }
+  .post .cat{
+    font-size:11.5px; letter-spacing:.2em; color:var(--ink-faint);
+    border:1px solid var(--line); padding:5px 14px; border-radius:999px; flex-shrink:0;
+  }
+  .post .arr{
+    font-family:var(--en); color:var(--gold); font-size:18px;
+    opacity:0; transform:translateX(-8px); transition:all .4s;
+  }
+  .post:hover .arr{ opacity:1; transform:none; }
+
+  /* ============ 底部 ============ */
+  footer{
+    padding:12vh 8vw 14vh; border-top:1px solid var(--line); text-align:center;
+  }
+  footer .big{
+    font-family:var(--serif); font-weight:300;
+    font-size:clamp(26px,5vw,54px); letter-spacing:.18em;
+  }
+  footer .big .gold{ color:var(--gold); }
+  footer .links{ margin-top:40px; display:flex; justify-content:center; gap:44px; }
+  footer .links a{
+    font-family:var(--en); font-size:12px; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--ink-dim); border-bottom:1px solid transparent; padding-bottom:4px; transition:all .3s;
+  }
+  footer .links a:hover{ color:var(--ink); border-color:var(--gold); }
+  footer .copy{ margin-top:80px; font-size:11px; letter-spacing:.18em; color:var(--ink-faint); }
+
+  /* 文章 modal（簡約） */
+  #reader{
+    position:fixed; inset:0; z-index:90; display:none;
+    background:rgba(11,11,13,.96); overflow-y:auto;
+  }
+  #reader.open{ display:block; }
+  #reader .inner{ max-width:720px; margin:0 auto; padding:16vh 8vw 20vh; }
+  #reader .close{
+    position:fixed; top:26px; right:5vw; font-family:var(--en); font-size:13px;
+    letter-spacing:.2em; color:var(--ink-dim); cursor:pointer; z-index:91;
+    border-bottom:1px solid transparent; padding-bottom:3px;
+  }
+  #reader .close:hover{ color:var(--ink); border-color:var(--gold); }
+  #reader .rtitle{ font-family:var(--serif); font-weight:300; font-size:clamp(26px,4.4vw,42px); line-height:1.5; letter-spacing:.08em; }
+  #reader .rmeta{ margin-top:20px; font-family:var(--en); font-size:12px; color:var(--ink-faint); letter-spacing:.18em; }
+  #reader .rbody{ margin-top:56px; font-size:16.5px; line-height:2.15; letter-spacing:.04em; color:var(--ink-dim); font-weight:300; }
+  #reader .rbody p{ margin-bottom:1.6em; }
+  #reader .rbody .lead{ color:var(--ink); font-family:var(--serif); font-size:19px; line-height:2; }
+
+  @media (max-width:900px){
+    header nav{ display:none; }
+    .field-grid{ grid-template-columns:1fr; }
+    .post{ flex-wrap:wrap; gap:12px; }
+    .post .date{ width:auto; }
+    .post .arr{ display:none; }
+    #thesis, #fields, #writing{ padding-left:6vw; padding-right:6vw; }
+    footer .links{ flex-wrap:wrap; gap:26px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+    #hero .eyebrow, #hero h1, #hero .sub, #hero .scrollhint{ opacity:1; animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="boot"><div class="tag">ENTROPY→ORDER</div></div>
+
+<header>
+  <div class="brand">Hopan<span style="color:var(--gold)">.</span></div>
+  <nav>
+    <a href="#thesis">理念</a>
+    <a href="#fields">分野</a>
+    <a href="#writing">文章</a>
+    <a href="#contact">聯繫</a>
+  </nav>
+</header>
+
+<section id="hero">
+  <canvas id="field"></canvas>
+  <div class="halo"></div>
+  <div class="eyebrow">AI-Native Researcher &amp; Architect</div>
+  <h1>把<span class="gold">混沌</span><br>煉成秩序</h1>
+  <div class="sub">研究 AI Agents、記憶系統、跨域數據。<br>用結構，對抗漂移。</div>
+  <div class="cta">
+    <a href="#writing" class="goldbt">看作品 ↓</a>
+    <a href="#contact">聯繫</a>
+  </div>
+  <div class="scrollhint">SCROLL</div>
+</section>
+
+<section id="thesis">
+  <div class="kicker reveal">Thesis</div>
+  <p class="reveal">我係<em>自己嘅錨</em>。<br>
+  世界係熵流，知識係秩序。<br>
+  我嘅工作，就係喺混沌之中，<br>
+  煉出可以信嘅嘢。</p>
+  <div class="foot reveal">—— 一個人，即一間公司</div>
+</section>
+
+<section id="fields">
+  <div class="kicker reveal">Fields</div>
+  <div class="field-grid">
+    <div class="field reveal">
+      <div class="no">01</div>
+      <h3>AI Agents</h3>
+      <p>唔係追模型，係砌 harness——模型、技能、記憶夾埋嘅成套系統。</p>
+    </div>
+    <div class="field reveal">
+      <div class="no">02</div>
+      <h3>記憶系統</h3>
+      <p>外部腦制度：知識由 raw 到 wiki 到產出，四階段飛輪，永不遺忘。</p>
+    </div>
+    <div class="field reveal">
+      <div class="no">03</div>
+      <h3>跨域數據</h3>
+      <p>金價、車價、樓價、股票——原本冇關嘅數據，搵出佢哋之間嘅共振。</p>
+    </div>
+    <div class="field reveal">
+      <div class="no">04</div>
+      <h3>研究寫作</h3>
+      <p>將深度研究蒸餾成一句 KO。數據前嘅判斷，判斷背後嘅證據。</p>
+    </div>
+  </div>
+</section>
+
+<section id="writing">
+  <div class="kicker reveal">Writings</div>
+  <div class="h reveal">近期文章</div>
+
+  <article class="post reveal" data-i="0">
+    <span class="date">2026 · 10</span>
+    <span class="tt">AI 記憶系統演化：蒸餾飛輪四階段</span>
+    <span class="cat">記憶系統</span>
+    <span class="arr">→</span>
+  </article>
+  <article class="post reveal" data-i="1">
+    <span class="date">2026 · 09</span>
+    <span class="tt">跨域數據共振：金價 × 樓價 × 車市</span>
+    <span class="cat">跨域研究</span>
+    <span class="arr">→</span>
+  </article>
+  <article class="post reveal" data-i="2">
+    <span class="date">2026 · 09</span>
+    <span class="tt">Agent 唔係模型：Harness 先係產品</span>
+    <span class="cat">AI Agents</span>
+    <span class="arr">→</span>
+  </article>
+  <article class="post reveal" data-i="3">
+    <span class="date">2026 · 08</span>
+    <span class="tt">反熵複利：習慣嘅底層結構</span>
+    <span class="cat">思考</span>
+    <span class="arr">→</span>
+  </article>
+  <article class="post reveal" data-i="4">
+    <span class="date">2026 · 08</span>
+    <span class="tt">設計 > 執行：點解啲好嘢永遠做唔晒</span>
+    <span class="cat">個人</span>
+    <span class="arr">→</span>
+  </article>
+</section>
+
+<footer id="contact">
+  <div class="big reveal">有嘢想同<span class="gold">混沌</span>對質，<br>隨時歡迎。</div>
+  <div class="links reveal">
+    <a href="#">Instagram</a>
+    <a href="#">GitHub</a>
+    <a href="#">Email</a>
+  </div>
+  <div class="copy reveal">© 2026 Hopan · 把混沌，煉成秩序</div>
+</footer>
+
+<!-- 文章閱讀器 -->
+<div id="reader">
+  <span class="close">CLOSE</span>
+  <div class="inner"><div id="rbody"></div></div>
+</div>
+
+<script>
+/* ============================================================
+   Hopan — 把混沌，煉成秩序
+   概念：熵 → 秩序。混沌粒子於首屏聚合為一線。
+============================================================ */
+const boot=document.getElementById('boot');
+addEventListener('load',()=>setTimeout(()=>boot.classList.add('done'),700));
+
+/* ---------- 混沌粒子場 ---------- */
+const cv=document.getElementById('field'), ctx=cv.getContext('2d');
+const hero=document.getElementById('hero');
+let W,H,dpr=Math.min(devicePixelRatio||1,2);
+function fit(){
+  W=cv.width=Math.floor(hero.clientWidth*dpr);
+  H=cv.height=Math.floor(hero.clientHeight*dpr);
+}
+fit(); addEventListener('resize',fit);
+
+/* 粒子：由下方混沌，向標題收斂上升（「煉成秩序」嘅故事） */
+const N=150;
+const P=[];
+// 秩序目標：一條沿標題中軸嘅「光芒帶」
+const targetX=i=>W/2 + (Math.sin(i*1.9)*W*0.34);
+const targetY=i=>H*0.46 + (Math.cos(i*2.7)*H*0.20);
+for(let i=0;i<N;i++){
+  P.push({
+    x:Math.random()*W, y:H*(0.7+Math.random()*0.6),   // 由底部開始
+    vx:(Math.random()-.5)*1.1*dpr, vy:(Math.random()-.5)*1.1*dpr,
+    r:(0.8+Math.random()*2.4)*dpr,
+    tx:targetX(i), ty:targetY(i),
+    gold:Math.random()<0.33,
+    a:0.35+Math.random()*0.8,
+    ph:Math.random()*6.28,
+  });
+}
+let t=0, ordered=0;
+setTimeout(()=>{ ordered=1; }, 1900);
+let mx=null,my=null;
+addEventListener('mousemove',e=>{
+  const r=hero.getBoundingClientRect();
+  mx=(e.clientX-r.left)*dpr; my=(e.clientY-r.top)*dpr;
+});
+
+function draw(){
+  t+=0.005;
+  ctx.clearRect(0,0,W,H);
+  const easeCurve = ordered<1 ? 0.006 : 0.022;   // 秩序化後加速收斂
+  // 「煉化」隨時間漸強：粒子由底升向標題光芒帶
+  for(const p of P){
+    const tx = targetX(P.indexOf(p)), ty = targetY(P.indexOf(p));
+    p.x += (tx-p.x)*easeCurve + p.vx;
+    p.y += (ty-p.y)*easeCurve + p.vy - 0.05*dpr;  // 微上升
+    p.vx*=.97; p.vy*=.97;
+
+    if(mx!==null){
+      const dx=p.x-mx, dy=p.y-my, d=Math.hypot(dx,dy);
+      if(d<110*dpr){ p.x+=dx/d*3*dpr; p.y+=dy/d*3*dpr; }
+    }
+    const tw=0.55+0.45*Math.sin(t*2.2+p.ph);
+    ctx.fillStyle = p.gold
+      ? `rgba(212,162,78,${p.a*tw})`
+      : `rgba(232,228,218,${p.a*tw*0.8})`;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
+    // 微光暈 —— 令每一粒有「光源」感
+    if(p.gold && p.r>1.8*dpr){
+      ctx.fillStyle=`rgba(212,162,78,${p.a*tw*0.13})`;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*3,0,6.283); ctx.fill();
+    }
+  }
+  // 收斂完成：光芒帶細線
+  if(ordered>0.5){
+    ctx.strokeStyle='rgba(212,162,78,0.13)';
+    ctx.lineWidth=1*dpr;
+    ctx.beginPath();
+    for(let i=0;i<110;i++){
+      const xx=W/2+(Math.sin(i*0.19)*W*0.34);
+      const yy=H*0.46+(Math.cos(i*0.27)*H*0.20);
+      i===0?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);
+    }
+    ctx.stroke();
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ---------- Scroll Reveal ---------- */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- 文章資料 ---------- */
+const POSTS=[
+  {
+    t:'AI 記憶系統演化：蒸餾飛輪四階段',
+    d:'2026 · 10', c:'記憶系統',
+    body:`
+      <p class="lead">記憶嘅痛點，唔係「儲唔夠」，係「搵唔返」。長對話燒 token，跨視窗喪失默契。所以唔係 keep 成段對話，而係 keep「進化緊嘅 profile」。</p>
+      <p>我哋將知識分成四階段：Raw（未加工原始）→ Source（已揀選源頭）→ Knowledge（已提煉知識）→ Output（產出）。每階段各有歸宿，形成飛輪。</p>
+      <p>蒸餾嘅核心：唔係將舊嘢壓縮，而係將十四個 session 嘅教訓、二十條 bug、十二條理論，煉成一個比原版更好嘅系統。失去舊 code，就係得到重寫機會。</p>
+      <p>信任機制先係護城河——幻覺降「出街率」，唔係降「幻想率」。價值唔係追 model，係追「機制服務模型」嗰套。</p>`
+  },
+  {
+    t:'跨域數據共振：金價 × 樓價 × 車市',
+    d:'2026 · 09', c:'跨域研究',
+    body:`
+      <p class="lead">金價、車價、樓價睇落冇關，但當你將佢哋放埋一齊，會見到同一股暗流。</p>
+      <p>數據 pipeline：爬取 → 驗證 → SQLite → 儀表板。每個數字都要追溯到源頭，唔靠感覺。</p>
+      <p>跨域嘅價值唔係「預測」，而係「共振」——原本獨立嘅信號，喺某個維度上突然同步，嗰下先係 insight。</p>
+      <p>工具唔係目的。目的係由混亂數據中，煉出一條可以信嘅線索。</p>`
+  },
+  {
+    t:'Agent 唔係模型：Harness 先係產品',
+    d:'2026 · 09', c:'AI Agents',
+    body:`
+      <p class="lead">人人問「邊個 model 最勁」，但我哋嘅答案係：樽頸喺 context pipeline，唔喺模型智商。</p>
+      <p>一個 agent 係由 prompt、工具、記憶、技能、編排合成嘅成套系統——先係「產品」。模型只係其中一粒零件。</p>
+      <p>Design > Model：你點樣餵 context、點樣校準、點樣防止幻覺出街，遠比換粒貴 model 重要。</p>
+      <p>AGI 唔會係一粒 model——係 model + skill + harness 嘅成套嘢。</p>`
+  },
+  {
+    t:'反熵複利：習慣嘅底層結構',
+    d:'2026 · 08', c:'思考',
+    body:`
+      <p class="lead">宇宙傾向熵增，但生命嘅本質係局部反熵。習慣就係「反熵複利」——每日一點點秩序，累積成結構。</p>
+      <p>問題從來唔係「冇能力」，係「用一把永遠唔准自己收尾嘅尺」嚟量自己。天才冇定義，所以永遠覺得未夠好。</p>
+      <p>破解方法：完成一件細細嘅嘢，唔好自己判斷算唔算完成——交俾第二個人見證，佢幫你寫低、蓋章。</p>
+      <p>你信第二個，多過信自己。咁先有得收尾。</p>`
+  },
+  {
+    t:'設計 > 執行：點解啲好嘢永遠做唔晒',
+    d:'2026 · 08', c:'個人',
+    body:`
+      <p class="lead">獎喺開頭興奮嗰陣已經兌現咗，收尾嗰刻反而唔准收——呢個先係「永遠做唔晒」嘅根因。</p>
+      <p>解決方法唔係「逼自己勤力」，而係將「完成」嘅判斷權外判。小事即做，做完交帳，唔好留喺自己個腦度 loop。</p>
+      <p>系統示範過：自動化 = self-heal 係有力嘅。但紀律係人嘅嘢，唔係 pipeline 嘅嘢。</p>
+      <p>最尾一句：完成，先係真正嘅開始。</p>`
+  },
+];
+
+/* ---------- 文章閱讀器 ---------- */
+const reader=document.getElementById('reader');
+const rbody=document.getElementById('rbody');
+document.querySelectorAll('.post').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const p=POSTS[+el.dataset.i];
+    rbody.innerHTML=`
+      <div class="rtitle">${p.t}</div>
+      <div class="rmeta">${p.d} &nbsp;·&nbsp; ${p.c}</div>
+      <div class="rbody">${p.body}</div>`;
+    reader.classList.add('open');
+    reader.scrollTop=0;
+  });
+});
+reader.querySelector('.close').addEventListener('click',()=>reader.classList.remove('open'));
+reader.addEventListener('click',e=>{ if(e.target===reader) reader.classList.remove('open'); });
+addEventListener('keydown',e=>{ if(e.key==='Escape') reader.classList.remove('open'); });
+
+/* 平滑 anchor（header 唔遮） */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+</html>
