@@ -348,7 +348,7 @@ footer .copy b{ color:var(--red); font-weight:400; }
   background-size:26px 26px;
 }
 #reader.open{ display:block; }
-#reader .inner{ max-width:740px; margin:0 auto; padding:14vh 8vw 18vh; }
+#reader .inner{ max-width:900px; margin:0 auto; padding:14vh clamp(36px,6vw,120px) 18vh; }
 #reader .close{
   position:fixed; top:22px; right:5vw; z-index:91;
   font-family:var(--sans); font-size:12.5px;
@@ -368,15 +368,15 @@ footer .copy b{ color:var(--red); font-weight:400; }
   line-height:1.35; letter-spacing:.02em; padding-bottom:26px;
   border-bottom:4px solid var(--ink);
 }
-#reader .rbody{ margin-top:46px; font-size:18px; line-height:2.05; letter-spacing:.02em; color:var(--ink-soft); font-weight:400; }
+#reader .rbody{ margin-top:46px; font-size:clamp(17px,1.4vw,20px); line-height:2.05; letter-spacing:.02em; color:var(--ink-soft); font-weight:400; }
 #reader .rbody p{ margin-bottom:1.7em; }
 #reader .rbody p:first-child::first-letter{
   font-family:var(--display); font-weight:900; font-size:52px; line-height:1;
   float:left; margin:6px 10px 0 0; color:var(--red);
 }
-#reader .rbody .lead{ color:var(--ink); font-family:var(--display); font-weight:600; font-size:20px; line-height:1.95; }
+#reader .rbody .lead{ color:var(--ink); font-family:var(--display); font-weight:600; font-size:clamp(19px,1.5vw,22px); line-height:1.95; }
 #reader .rbody h3{
-  font-family:var(--display); font-weight:900; font-size:19px;
+  font-family:var(--display); font-weight:900; font-size:clamp(18px,1.3vw,21px);
   letter-spacing:.04em; margin:2.2em 0 .9em; padding-bottom:8px;
   border-bottom:2px solid var(--ink); color:var(--ink);
 }
