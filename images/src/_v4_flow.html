@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'SS4';src:url('../../fonts/source-serif-4-variable.ttf') format('truetype');font-weight:200 900;}
+@font-face{font-family:'EBG';src:url('../../fonts/eb-garamond-variable.ttf') format('truetype');font-weight:400 800;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1600px;height:830px;background:#f3efe5;color:#191916;font-family:'EBG',serif;position:relative;overflow:hidden;}
+.grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
+.head{position:absolute;top:56px;left:80px;right:80px;display:flex;justify-content:space-between;font-family:'SS4',serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#6f6b5e;}
+h2{position:absolute;top:106px;left:80px;font-family:'SS4',serif;font-size:58px;font-weight:600;}
+h2 .r{color:#a3231d;}
+.dek{position:absolute;top:196px;left:80px;right:80px;font-size:25px;color:#3d3c36;line-height:1.55;}
+.flow{position:absolute;top:310px;left:80px;right:80px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.step{padding:0 30px 0 0;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;right:14px;top:8px;width:1px;height:300px;background:rgba(25,25,22,.2);}
+.num{font-family:'SS4',serif;font-size:96px;font-weight:600;line-height:.8;color:#a3231d;letter-spacing:-.04em;}
+.st{font-family:'SS4',serif;font-size:26px;font-weight:600;margin-top:26px;line-height:1.3;}
+.sd{font-size:20px;color:#3d3c36;line-height:1.6;margin-top:16px;}
+.sd b{font-weight:600;color:#191916;}
+.bot{position:absolute;bottom:56px;left:80px;right:80px;border-top:2px solid #191916;padding-top:28px;display:flex;justify-content:space-between;align-items:baseline;}
+.bot .q{font-family:'SS4',serif;font-size:30px;font-weight:600;letter-spacing:-.01em;}
+.bot .s{font-family:'SS4',serif;font-size:15px;letter-spacing:.18em;color:#6f6b5e;}
+</style></head><body>
+<div class="grain"></div>
+<div class="head"><span>先殺後買 · Kill Your Edge</span><span>Chapter 01</span></div>
+<h2>四步<span class="r">判決流程</span></h2>
+<div class="dek">跑之前寫死，跑完不准改。任何一步偷雞，後面全部作廢。</div>
+<div class="flow">
+  <div class="step">
+    <div class="num">01</div>
+    <div class="st">寫死規格</div>
+    <div class="sd">訊號定義、宇宙、持倉期、進場規則。<b>定義取 hash 鎖死</b>，日後無法聲稱「我本來係咁諗」。</div>
+  </div>
+  <div class="step">
+    <div class="num">02</div>
+    <div class="st">PIT 對齊</div>
+    <div class="sd">只用<b>公布日</b>（filed_at）之前可得的數據。<br>財報期末 ≠ 公布日，差 30–60 日。</div>
+  </div>
+  <div class="step">
+    <div class="num">03</div>
+    <div class="st">兩個 placebo</div>
+    <div class="sd">P1：同 beta 對照組。<br>P2：打亂分類標籤 1,000 次。<br><b>打不贏隨機，即刻收檔。</b></div>
+  </div>
+  <div class="step">
+    <div class="num">04</div>
+    <div class="st">按規則判決</div>
+    <div class="sd">通過條件在跑之前寫好。<br>唔通過就<b>刪除整個結論</b>，不是「再調一下參數」。</div>
+  </div>
+</div>
+<div class="bot">
+  <div class="q">當日實測：三個結論，兩個被處決。</div>
+  <div class="s">DISCIPLINE &gt; INSIGHT</div>
+</div>
+</body></html>

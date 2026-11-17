@@ -340,14 +340,30 @@ footer .links a:focus-visible{ outline:2px solid var(--red); outline-offset:2px;
 footer .copy{ margin-top:70px; font-size:12px; letter-spacing:.18em; color:var(--ink-faint); }
 footer .copy b{ color:var(--red); font-weight:400; }
 
-/* 文章讀取 modal（紙本） */
+/* 文章讀取 modal（紙本）— 原生 <dialog>，focus trap／Esc／背景 inert 由瀏覽器負責 */
 #reader{
-  position:fixed; inset:0; z-index:90; display:none;
-  background:var(--ground); overflow-y:auto;
+  position:fixed; inset:0; margin:0; padding:0;
+  width:100%; max-width:100%; height:100%; max-height:100%;
+  border:0; z-index:90; color:inherit;
+  background:var(--ground);
   background-image:radial-gradient(rgba(25,25,22,.028) 1px, transparent 1.4px);
   background-size:26px 26px;
+  overflow-y:auto; overscroll-behavior:contain;
+  /* 入出場動畫：display/overlay 要 allow-discrete 才過渡得到 */
+  opacity:0; transform:translateY(12px);
+  transition-property:opacity, transform, display, overlay;
+  transition-duration:.3s; transition-timing-function:ease-out;
+  transition-behavior:allow-discrete;
 }
-#reader.open{ display:block; }
+#reader[open]{
+  opacity:1; transform:none;
+  @starting-style{ opacity:0; transform:translateY(12px); }
+}
+@media (prefers-reduced-motion: reduce){
+  #reader{ transition:none; opacity:1; transform:none; }
+}
+/* 紙本滿版，唔要暗底 */
+#reader::backdrop{ background:transparent; }
 #reader .inner{ max-width:900px; margin:0 auto; padding:14vh clamp(36px,6vw,120px) 18vh; }
 #reader .close{
   position:fixed; top:22px; right:5vw; z-index:91;
@@ -432,6 +448,7 @@ footer .copy b{ color:var(--red); font-weight:400; }
     <a href="#about">關於</a>
     <a href="#columns">分類</a>
     <a href="#writing">文章</a>
+    <a href="shop.html">產品</a>
     <a href="#contact">聯繫</a>
   </nav>
   <button id="menubtn" aria-label="開啟選單" aria-expanded="false">☰</button>
@@ -481,10 +498,10 @@ footer .copy b{ color:var(--red); font-weight:400; }
 </footer>
 
 <!-- 文章閱讀器 -->
-<div id="reader" role="dialog" aria-modal="true" aria-label="文章閱讀器">
-  <button class="close">CLOSE ✕</button>
+<dialog id="reader" aria-label="文章閱讀器" closedby="any">
+  <button class="close" type="button">CLOSE ✕</button>
   <div class="inner"><div id="rbody"></div></div>
-</div>
+</dialog>
 
 <!-- 文章資料庫 —— 加文章：喺 posts.js 加一篇就得，唔使掂 HTML -->
 <script src="posts.js"></script>
@@ -663,30 +680,20 @@ function setFilter(c){
 function filterCat(c){ setFilter(c); document.getElementById('writing').scrollIntoView({behavior:'smooth'}); }
 buildBar(); renderList(null);
 
-/* ---------- 文章讀取 ---------- */
+/* ---------- 文章讀取（原生 <dialog>：瀏覽器負責 focus trap／Esc／背景 inert／焦點歸位） ---------- */
 const reader=document.getElementById('reader'), rbody=document.getElementById('rbody');
-let lastFocus=null;
-function openReader(p,triggerEl){
-  lastFocus=triggerEl;
+function openReader(p){
   rbody.innerHTML=`<p class="rmeta">${p.d}<span>•</span>${p.c}</p>`+
     `<h2 class="rtitle">${p.t}</h2>`+
     `<div class="rbody">${p.body}</div>`;
-  reader.classList.add('open');
-  document.body.style.overflow='hidden';
+  if(!reader.open) reader.showModal();   // showModal = 背景 inert + top layer + Esc 自動關
   reader.scrollTop=0;
-  // v2: focus 入 modal，鍵盤用戶唔使摸黑
-  const closeBtn=document.querySelector('#reader .close');
-  closeBtn.focus();
 }
-document.querySelector('#reader .close').addEventListener('click',closeReader);
-reader.addEventListener('click',e=>{ if(e.target===reader) closeReader(); });
-function closeReader(){
-  reader.classList.remove('open');
-  document.body.style.overflow='';
-  // v2: focus 歸位
-  if(lastFocus && lastFocus.focus) lastFocus.focus();
-}
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeReader(); });
+reader.querySelector('.close').addEventListener('click',()=>reader.close());
+/* 點紙邊（.inner 以外）都關得，保留舊版手感 */
+reader.addEventListener('click',e=>{ if(e.target===reader) reader.close(); });
+/* 註：唔使 body overflow lock、唔使自己寫 focus trap、唔使 global Esc listener、
+   唔使自己還原焦點 —— 全部係原生 <dialog> 已經做嘅嘢。 */
 
 /* ---------- 手機 hamburger ---------- */
 const menubtn=document.getElementById('menubtn');

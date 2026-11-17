@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'SS4';src:url('../../fonts/source-serif-4-variable.ttf') format('truetype');font-weight:200 900;}
+@font-face{font-family:'EBG';src:url('../../fonts/eb-garamond-variable.ttf') format('truetype');font-weight:400 800;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1600px;height:1000px;background:#f3efe5;color:#191916;font-family:'EBG',serif;position:relative;overflow:hidden;}
+.grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
+.head{position:absolute;top:56px;left:80px;right:80px;display:flex;justify-content:space-between;font-family:'SS4',serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#6f6b5e;}
+h2{position:absolute;top:106px;left:80px;font-family:'SS4',serif;font-size:58px;font-weight:600;}
+h2 .r{color:#a3231d;}
+.dek{position:absolute;top:196px;left:80px;right:80px;font-size:25px;color:#3d3c36;line-height:1.55;}
+.site{position:absolute;top:300px;left:80px;right:80px;font-family:'SS4',serif;font-size:15px;letter-spacing:.16em;color:#6f6b5e;text-transform:uppercase;}
+.chart{position:absolute;top:340px;left:80px;right:80px;height:340px;border-bottom:2px solid #191916;}
+.bar{position:absolute;bottom:0;width:190px;}
+.bar .col{position:absolute;bottom:0;left:0;right:0;}
+.bar .val{position:absolute;left:0;right:0;text-align:center;font-family:'SS4',serif;font-size:42px;font-weight:600;letter-spacing:-.02em;}
+.bar .lab{position:absolute;top:calc(100% + 18px);left:-30px;right:-30px;text-align:center;font-size:20px;color:#3d3c36;line-height:1.35;}
+.thr{position:absolute;left:0;right:0;border-top:2px dashed #a3231d;}
+.thr span{position:absolute;right:0;top:-32px;font-family:'SS4',serif;font-size:15px;letter-spacing:.14em;color:#a3231d;}
+.verdict{position:absolute;top:790px;left:80px;right:80px;display:flex;gap:20px;}
+.v{padding:16px 24px;font-family:'SS4',serif;font-size:19px;letter-spacing:.06em;border:2px solid #191916;}
+.v.no{border-color:#a3231d;color:#a3231d;}
+</style></head><body>
+<div class="grain"></div>
+<div class="head"><span>先殺後買 · Kill Your Edge</span><span>Chapter 04</span></div>
+<h2>同一條數據，<span class="r">三個答案</span></h2>
+<div class="dek">你以為的顯著性，取決於你用哪一條公式。左邊是 Excel 直接算的，右邊是樣本重疊修正後的。</div>
+<div class="chart">
+  <div class="thr" style="bottom:60px"><span>顯著門檻 1.96</span></div>
+  <div class="bar" style="left:120px">
+    <div class="col" style="height:340px;background:#191916"></div>
+    <div class="val" style="bottom:352px">11.2</div>
+    <div class="lab">naive t<br><span style="color:#6f6b5e;font-size:17px">每日觀察當獨立</span></div>
+  </div>
+  <div class="bar" style="left:600px">
+    <div class="col" style="height:74px;background:#a3231d"></div>
+    <div class="val" style="bottom:86px">2.45</div>
+    <div class="lab">重疊修正後<br><span style="color:#6f6b5e;font-size:17px">÷ √21</span></div>
+  </div>
+  <div class="bar" style="left:1080px">
+    <div class="col" style="height:60px;background:#6f6b5e"></div>
+    <div class="val" style="bottom:72px">1.96</div>
+    <div class="lab">真實門檻<br><span style="color:#6f6b5e;font-size:17px">p = 0.05</span></div>
+  </div>
+</div>
+<div class="verdict">
+  <div class="v no">真相：邊緣，扣成本後歸零</div>
+  <div class="v">同一組數字 · 五倍差距</div>
+</div>
+<div style="position:absolute;bottom:46px;left:80px;font-family:'SS4',serif;font-size:15px;letter-spacing:.18em;color:#6f6b5e;">DATA: 2010–2026 · 4,242 TRADING DAYS</div>
+<div style="position:absolute;bottom:46px;right:80px;font-family:'SS4',serif;font-size:15px;letter-spacing:.18em;color:#6f6b5e;">hopan · 2026</div>
+</body></html>

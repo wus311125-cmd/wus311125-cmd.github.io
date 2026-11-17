@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'SS4';src:url('../../fonts/source-serif-4-variable.ttf') format('truetype');font-weight:200 900;}
+@font-face{font-family:'EBG';src:url('../../fonts/eb-garamond-variable.ttf') format('truetype');font-weight:400 800;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1600px;height:1100px;background:#f3efe5;color:#191916;font-family:'EBG',serif;position:relative;overflow:hidden;}
+.grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
+.head{position:absolute;top:56px;left:80px;right:80px;display:flex;justify-content:space-between;font-family:'SS4',serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#6f6b5e;}
+h2{position:absolute;top:110px;left:80px;font-family:'SS4',serif;font-size:62px;font-weight:600;letter-spacing:-.01em;}
+h2 .r{color:#a3231d;}
+.dek{position:absolute;top:200px;left:80px;right:80px;font-size:26px;color:#3d3c36;line-height:1.5;border-bottom:2px solid #191916;padding-bottom:26px;}
+table{position:absolute;top:330px;left:80px;right:80px;width:calc(100% - 160px);border-collapse:collapse;}
+th{font-family:'SS4',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#6f6b5e;text-align:left;padding:0 0 14px;border-bottom:1px solid rgba(25,25,22,.25);}
+td{padding:19px 0;border-bottom:1px solid rgba(25,25,22,.13);vertical-align:top;font-size:24px;line-height:1.35;}
+td.i{width:70px;font-family:'SS4',serif;font-size:30px;font-weight:600;color:#a3231d;}
+td.n{width:400px;font-weight:600;}
+td.m{width:520px;color:#3d3c36;font-size:22px;}
+td.v{width:260px;font-family:'SS4',serif;font-size:19px;letter-spacing:.08em;color:#a3231d;text-align:right;}
+.foot{position:absolute;bottom:46px;left:80px;right:80px;display:flex;justify-content:space-between;font-family:'SS4',serif;font-size:15px;letter-spacing:.18em;color:#6f6b5e;}
+</style></head><body>
+<div class="grain"></div>
+<div class="head"><span>先殺後買 · Kill Your Edge</span><span>Chapter 02</span></div>
+<h2>六個<span class="r">自欺陷阱</span></h2>
+<div class="dek">以下六項，全部係真實發生過的錯。左邊是陷阱，右邊是它當日殺死的結論。</div>
+<table>
+<tr><th>#</th><th>陷阱</th><th>當日實例</th><th>造出的假象</th></tr>
+<tr><td class="i">01</td><td class="n">重疊窗口</td><td class="m">每日觀察、持倉 21 日，樣本互相重疊</td><td class="v">t = 11.2 → 2.45</td></tr>
+<tr><td class="i">02</td><td class="n">事後改定義</td><td class="m">見到結果唔對，改個方法再測一次</td><td class="v">無法計算</td></tr>
+<tr><td class="i">03</td><td class="n">假恆等式</td><td class="m">收錢層收入 ÷ 付錢層 capex = 1.61x</td><td class="v">兩個不同範疇</td></tr>
+<tr><td class="i">04</td><td class="n">無對照組</td><td class="m">10 個手選觀察，n = 8，兩個反例</td><td class="v">零檢定力</td></tr>
+<tr><td class="i">05</td><td class="n">分類無資訊</td><td class="m">打亂標籤 1000 次，真實在 93.9 百分位</td><td class="v">需 ≥ 95 才過</td></tr>
+<tr><td class="i">06</td><td class="n">存活偏差</td><td class="m">用今日指數成分股，回測 2010 年</td><td class="v">只篩到贏家</td></tr>
+</table>
+<div class="foot"><span>六個陷阱 · 一個判決流程</span><span>hopan · 2026</span></div>
+</body></html>
